@@ -1,0 +1,24 @@
+{
+  "name": "kevinzhu",
+  "version": "1.0.2",
+  "description": "Kevin Zhu's Interactive Resume",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Kevin",
+    "Zhu",
+    "Resume"
+  ],
+  "author": "Kevin Zhu",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^3.0.0",
+    "clear": "^0.1.0",
+    "inquirer": "^7.0.0"
+  },
+  "bin": {
+    "kevinzhu": "./index.js"
+  }
+}
