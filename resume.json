@@ -1,60 +1,73 @@
 
 {
-	"Contact Information" : ["LinkedIn: https://www.linkedin.com/in/kevinjzhu/","Email: zhu.kevin@berkeley.edu"],
+	"Contact Information" : ["LinkedIn: https://www.linkedin.com/in/kevinjzhu/","NPM: https://www.npmjs.com/~kevinzhu822", "Github: https://github.com/kevinzhu822", "Email: zhu.kevin@berkeley.edu"],
 
 	"Education" : ["College: University of California, Berkeley", "Major: Computer Science", "Relevant Coursework: Data Structures, Discrete Math, Linear Algebra, Computer Architecture, Algorithms, Data Science"],
 
-	"Skills" : {
-		"Backend": ["Python", "Java", "C"],
-		"Data Science": ["SQL", "Pandas", "NumPy"],
-		"Frontend": ["HTML/CSS", "JavaScript", "Angular.js"],
-		"Graphic Design": ["Adobe Illustrator", "Adobe Photoshop", "Adobe Lightroom"],
-		"PCB Design" : ["SOLIDWORKS PCB", "CircuitMaker"]
-			   },
+	"Skills" : [
+		"Frontend: Angular, HTML/CSS, JavaScript, jQuery, Cypress", 
+		"Backend: Node.js, Flask, GraphQL, Python, Java", 
+		"Database/Data Science: Firebase, Google Cloud Platform, NumPy, Pandas, SQL",
+		"Other Languages: C, RISC-V Assembly, Lisp",
+		"Graphic Design: Adobe Illustrator, Photoshop, Lightroom",
+		"PCB Design: SOLIDWORKS PCB, CircuitMaker"
+			   ],
 
-	"Past Experience" : {
+	"Past Experiences" : {
 							"X-Matik Inc." : 
-								["Date: June 2019 - August 2019","Title: Software Engineering Intern",
-									{
-										"Responsibilities": ["Designed parts of a self-driving add-on kit for any car", "Built and conducted firmware tests in C to ensure components were functional and reliable", "Wrote software in Python to process and analyze telematics data from vehicles", "Designed PCBs using SOLIDWORKS PCB to perform specific tasks"]
-									}
+								[
+
+									"Software Engineering Intern",
+									"June 2019 - August 2019",
+									
+									["Designed parts of a self-driving add-on kit for any car", "Built and conducted firmware tests in C to ensure components were functional and reliable", "Wrote software in Python to process and analyze telematics data from vehicles", "Designed PCBs using SOLIDWORKS PCB to perform specific tasks"]
+									
 								],
 
 							"CodeBase" : 
-								["Date: August 2019 - Present","Title: Software Developer",
-									{
-										"Responsibilities" : ["Developed a bill-payment portal for Bill.com that can manage client accounts and make payments", "Built Bills and Payments Page, featuring virtual scrolling, modals, and calls to the Bill.com API", "Implemented using Angular.js, Apollo Client, GraphQL, Jest", "Participated in weekly scrum meetings"]
-									}
+								[	
+									"Software Developer",
+									"August 2019 - Present",
+
+									["Developed a bill-payment portal for Bill.com that can manage client accounts and make payments", "Built Bills and Payments Page, featuring virtual scrolling, modals, and calls to the Bill.com API", "Implemented using Angular.js, Apollo Client, GraphQL, Cypress", "Participated in weekly scrum meetings"]
+									
 								],
 
 							"Uber Freight" : 
-								["Date: January 2019 - May 2019","Title: Contract Consultant",
-									{
-										"Responsibilities" : ["Aided Uber Freight in improving the CSR side of its operations", "Developed mock-up for improvements to the Uber Freight mobile app", "Presented recommendations on improving the environmental sustainability of their operations"]
-									}
+								[
+									"Contract Consultant",
+									"January 2019 - May 2019",
+									
+									["Aided Uber Freight in improving the CSR side of its operations", "Developed mock-up for improvements to the Uber Freight mobile app", "Presented recommendations on improving the environmental sustainability of their operations"]
+									
 								]
 					    },
 
 	"Projects": {
+							"NPM Resume Package (This Resume You're Reading Right Now)":
+								[
+									"Node.js, JavaScript, Chalk, Inquirer, NoSQL, RestDB",
+									["Formatted my resume into an installable NPM package", "Makes POST requests to my API", "Published on npmjs.com"]
+									
+								], 
+
 							"HealthClear" :
-								["Tech Stack: JavaScript, Python, Flask, BeautifulSoup, Bootstrap, jQuery",
-									{
-										"Details" : ["Built web app to improve healthcare transparency by finding cheapest hospital costs", "App connects to Google Maps API to draw customized maps and Uber API for real-time ride data", "Accurate hospital data is scraped using BeautifulSoup from an online database"]
-									}
+								[
+
+									"JavaScript, Python, Flask, BeautifulSoup, Bootstrap, jQuery",
+										
+									["Built web app to improve healthcare transparency by finding cheapest hospital costs", "App connects to Google Maps API to draw customized maps and Uber API for real-time ride data", "Accurate hospital data is scraped using BeautifulSoup from an online database"]
+									
 								],
 
 							"Mobile Melanoma Tracker" : 
-								["Tech Stack: Android Studio, Firebase, Google Cloud Platform, MATLAB",
-									{
-									"Details" : ["Built Android app that uses computer vision to track progression of melanoma", "MATLAB to JavaScript converter tool used to run MATLAB code in cloud", "Backend and image processing utilize Firebase and Google Cloud Platform"]
-									}
-								],
-
-							"NPM Resume Package (This Resume You're Reading Right Now)":
-								["Tech Stack: Node.js, JavaScript, Chalk, Inquirer",
-									{
-									"Details" : ["Formatted my resume into an installable NPM package", "Published on npmjs.com"]
-									}
+								[
+									"Android Studio, Firebase, Google Cloud Platform, MATLAB",
+									
+									["Built Android app that uses computer vision to track progression of melanoma", "MATLAB to JavaScript converter tool used to run MATLAB code in cloud", "Backend and image processing utilize Firebase and Google Cloud Platform"]
+									
 								]
+
+							
 						}
 }

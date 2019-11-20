@@ -5,51 +5,169 @@
 var inquirer = require("inquirer");
 var chalk = require("chalk");
 var clear = require('clear');
+var request = require("request");
+
+
+
 
 var header = chalk.bold.underline;
 var yellow = chalk.yellow.bold;
 var blue = chalk.blue.bold;
+var cyan = chalk.cyan;
+var regular = chalk.white;
 
 var resume = require("./resume.json");
+
 
 var mainMenu = {
     type: "list",
     name: "resumeOptions",
     message: yellow("What do you want to know about me?"),
-    choices: [new inquirer.Separator(), ...Object.keys(resume), new inquirer.Separator(""), "Exit"]
+    choices: [...Object.keys(resume), new inquirer.Separator(""), "Exit"],
+    pageSize: "10"
 };
 
 var skillsMenu = {
     type: "list",
     name: "skillOptions",
     message: yellow("Which of my skill categories do you want to learn about?"),
-    choices: [new inquirer.Separator(), ...Object.keys(resume.Skills), new inquirer.Separator(), "Back to Main Menu", "Exit"]
+    choices: [...Object.keys(resume.Skills), new inquirer.Separator(), "Back to Main Menu", "Exit"],
+    pageSize: "10"
+
 };
 
 var experienceMenu = {
     type: "list",
     name: "experienceOptions",
     message: yellow("Which of my experiences do you want to learn more about?"),
-    choices: [new inquirer.Separator(), ...Object.keys(resume["Past Experience"]), new inquirer.Separator(), "Back to Main Menu", "Exit"]
+    choices: [...Object.keys(resume["Past Experiences"]), new inquirer.Separator(), "Back to Main Menu", "Exit"],
+    pageSize: "10"
 };
 
 var projectsMenu = {
     type: "list",
     name: "projectOptions",
     message: yellow("Which of my projects do you want to learn more about?"),
-    choices: [new inquirer.Separator(), ...Object.keys(resume["Projects"]), new inquirer.Separator(), "Back to Main Menu", "Exit"]
+    choices: [...Object.keys(resume["Projects"]), new inquirer.Separator(), "Back to Main Menu", "Exit"]
 };
 
-function main() {
-    resumeHandler();
+var introductionQuestions = [
+	{
+    type: 'input',
+    name: "name",
+    message: "What's your name?",
+    validate: (res) => {
+      if(!res.length || res=="abc" || res=="asd" || res=="xyz" || res=="aaa")
+        return('Invalid name');
+      else return true;
+    }
+  },
+  {
+    type: 'input',
+    name: "email",
+    message: "What's your email?",
+    validate: (res) => {
+      const reg = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+      if(reg.test(res))
+        return true;
+      else return('Please enter valid email.');
+    }
+  }
+];
+
+const widthOfTerminal = process.stdout.columns;
+
+function drawTopDivider() {
+	console.log("┏" + "━".repeat(widthOfTerminal-4) + "┓");
 }
 
-function resumeHandler() {
-    clear();
-    console.log("\n");
+function drawMidDivider() {
+	console.log("┃" + "━".repeat(widthOfTerminal-4) + "┃");
+}
+
+function drawBotDivider() {
+	console.log("┗" + "━".repeat(widthOfTerminal-4) + "┛");
+}
+
+function centerText(text, style) {
+	var leftoverSpaces = widthOfTerminal - text.length;
+	if (leftoverSpaces % 2 != 0) {
+		leftoverSpaces = leftoverSpaces - 1;
+	}
+
+	var sideSpace = leftoverSpaces / 2;
+	console.log(" ".repeat(sideSpace) + style(text) + " ".repeat(sideSpace));
+}
+
+function alignText(text, style, longest) {
+	var leftoverSpaces = widthOfTerminal - longest;
+	if (leftoverSpaces % 2 != 0) {
+		leftoverSpaces = leftoverSpaces - 1;
+	}
+
+	var sideSpace = leftoverSpaces / 2;
+	console.log(" ".repeat(sideSpace-1) + "- "+style(text) + " ".repeat(sideSpace-1));
+
+}
+
+function centerTextMultiple(text1, text2, style1) {
+	var leftoverSpaces = widthOfTerminal - text1.length - text2.length;
+	if (leftoverSpaces % 2 != 0) {
+		leftoverSpaces = leftoverSpaces - 1;
+	}
+
+	var sideSpace = leftoverSpaces / 2;
+	console.log(" ".repeat(sideSpace) + style1(text1) + text2 + " ".repeat(sideSpace));
+}
+
+async function main() {
+	clear();
+	await introduction(inquirer);
+    resumeHandler(true);
+  
+}
+
+async function introduction(inquirer) {
+		console.clear();
+		console.log("Hey! Thanks for visiting my resume!");
+		console.log("Before we begin, can you answer a few questions?");
+		await inquirer.prompt(introductionQuestions).then(intro => {
+		    console.clear();
+		    console.log("\n");
+		    console.log(" ", `Hey ${intro.name}!`);
+		    recordVisitor(intro.name, intro.email);
+	  	})
+}	
+
+function recordVisitor(visitorName, visitorEmail) {
+	var options = { method: 'POST',
+	  url: 'https://resumedata-ff5c.restdb.io/rest/visitor-data',
+	  headers: 
+	   { 'cache-control': 'no-cache',
+	     'x-apikey': '030e3abaeef7a980d7e8fcf25f331a2096ac5',
+	     'content-type': 'application/json' },
+	  body: { Name: visitorName, Email: visitorEmail},
+	  json: true };
+
+
+  	request(options, function (error, response, body) {
+		if (error) throw new Error(error);
+  		// console.log(body);
+	});
+
+}
+
+
+
+function resumeHandler(init) {
+	if (init == null) {
+		clear()
+	}
+	console.log('\n');
     console.log(" ", blue.underline("Kevin Zhu's Resume"));
     inquirer.prompt(mainMenu).then(answer => {
         if (answer.resumeOptions == "Exit") {
+        	clear();
             return;
         }
 
@@ -69,7 +187,7 @@ function resumeHandler() {
             return;
         }
 
-        if (answer.resumeOptions == "Past Experience") {
+        if (answer.resumeOptions == "Past Experiences") {
             experienceHandler();
             return;
         }
@@ -81,12 +199,37 @@ function resumeHandler() {
     });
 }
 
+function dataStylerAndPrint(string) {
+    var colonIndex = string.indexOf(":");
+    if (colonIndex != -1) {
+        var beforeColon = string.slice(0, colonIndex + 1);
+        var afterColon = string.slice(colonIndex + 1);
+        console.log(" ", blue(beforeColon), chalk.bold.white(afterColon));
+    } else {
+        console.log(" ", blue(string));
+    }
+
+}
+
 function contactHandler() {
     clear();
     console.log("\n");
-    console.log(" ", header("Contact Information"));
+    centerText("Contact Information", regular.bold);
+	drawTopDivider();
+    var counter = 0;
     resume[`${"Contact Information"}`].forEach(info => {
-        dataStylerAndPrint(info);
+    	var colonIndex = info.indexOf(":");
+        var beforeColon = info.slice(0, colonIndex);
+        var afterColon = info.slice(colonIndex + 1);
+        centerText(beforeColon, yellow);
+        centerText(afterColon, cyan)
+        counter = counter + 1;
+        if (counter == resume[`${"Contact Information"}`].length) {
+        	drawBotDivider();
+        } else {
+	        drawMidDivider();
+        }
+        
     });
     console.log("\n");
     actionHandler();
@@ -96,9 +239,22 @@ function contactHandler() {
 function educationHandler() {
     clear();
     console.log("\n");
-    console.log(" ", header("Education"));
+    centerText("Education", regular.bold);
+    drawTopDivider();
+    var counter = 0;
     resume[`${"Education"}`].forEach(info => {
-        dataStylerAndPrint(info);
+        var colonIndex = info.indexOf(":");
+        var beforeColon = info.slice(0, colonIndex);
+        var afterColon = info.slice(colonIndex + 1);
+        centerText(beforeColon, yellow);
+        centerText(afterColon, cyan)
+        counter = counter + 1;
+        if (counter == resume[`${"Education"}`].length) {
+        	drawBotDivider();
+        } else {
+	        drawMidDivider();
+        }
+
     });
     console.log("\n");
     actionHandler();
@@ -107,83 +263,29 @@ function educationHandler() {
 
 function skillHandler() {
     clear();
-    specificSkillHandler();
-    return;
-}
-
-function specificSkillHandler() {
     console.log("\n");
-    console.log(" ", header("Skills"));
-    inquirer.prompt(skillsMenu)
-        .then(choice => {
-            if (choice.skillOptions == "Back to Main Menu") {
-                resumeHandler();
-                return;
-            }
+    centerText("Skills", regular.bold);
+    drawTopDivider();
+    var counter = 0;
+    resume[`${"Skills"}`].forEach(info => {
+        var colonIndex = info.indexOf(":");
+        var beforeColon = info.slice(0, colonIndex);
+        var afterColon = info.slice(colonIndex + 1);
+        centerText(beforeColon, yellow);
+        centerText(afterColon, cyan)
+        counter = counter + 1;
+        if (counter == resume[`${"Skills"}`].length) {
+        	drawBotDivider();
+        } else {
+	        drawMidDivider();
+        }
 
-            if (choice.skillOptions == "Exit") {
-                return;
-            }
-
-            if (choice.skillOptions == "Backend") {
-                clear();
-                console.log("\n");
-                console.log(" ", header("Backend"));
-                resume[`${"Skills"}`][`${"Backend"}`].forEach(info => {
-                    dataStylerAndPrint(info)
-                });
-                console.log("\n");
-                actionHandler("Skills");
-            }
-
-            if (choice.skillOptions == "Data Science") {
-                clear();
-                console.log("\n");
-                console.log(" ", header("Data Science"));
-                resume[`${"Skills"}`][`${"Data Science"}`].forEach(info => {
-                    dataStylerAndPrint(info)
-                });
-                console.log("\n");
-                actionHandler("Skills");
-            }
-
-            if (choice.skillOptions == "Frontend") {
-                clear();
-                console.log("\n");
-                console.log(" ", header("Frontend"));
-                resume[`${"Skills"}`][`${"Frontend"}`].forEach(info => {
-                    dataStylerAndPrint(info)
-                });
-                console.log("\n");
-                actionHandler("Skills");
-            }
-
-            if (choice.skillOptions == "Graphic Design") {
-                clear();
-                console.log("\n");
-                console.log(" ", header("Graphic Design"));
-                resume[`${"Skills"}`][`${"Graphic Design"}`].forEach(info => {
-                    dataStylerAndPrint(info)
-                });
-                console.log("\n");
-                actionHandler("Skills");
-            }
-
-            if (choice.skillOptions == "PCB Design") {
-                clear();
-                console.log("\n");
-                console.log(" ", header("PCB Design"));
-                resume[`${"Skills"}`][`${"PCB Design"}`].forEach(info => {
-                    dataStylerAndPrint(info)
-                });
-                console.log("\n");
-                actionHandler("Skills");
-            }
-
-
-        });
+    });
+    console.log("\n");
+    actionHandler();
     return;
 }
+
 
 function experienceHandler() {
     clear();
@@ -193,7 +295,7 @@ function experienceHandler() {
 
 function specificExperienceHandler() {
     console.log("\n");
-    console.log(" ", header("Past Experience"));
+    console.log(" ", header("Past Experiences"));
     inquirer.prompt(experienceMenu)
         .then(choice => {
             if (choice.experienceOptions == "Back to Main Menu") {
@@ -202,26 +304,27 @@ function specificExperienceHandler() {
             }
 
             if (choice.experienceOptions == "Exit") {
+            	clear();
                 return;
             }
 
             if (choice.experienceOptions == "X-Matik Inc.") {
                 experienceDataPrinter("X-Matik Inc.");
                 console.log("\n");
-                actionHandler("Past Experience");
+                actionHandler("Past Experiences");
 
             }
 
             if (choice.experienceOptions == "CodeBase") {
                 experienceDataPrinter("CodeBase");
                 console.log("\n");
-                actionHandler("Past Experience");
+                actionHandler("Past Experiences");
             }
 
             if (choice.experienceOptions == "Uber Freight") {
                 experienceDataPrinter("Uber Freight");
                 console.log("\n");
-                actionHandler("Past Experience");
+                actionHandler("Past Experiences");
             }
 
         })
@@ -232,31 +335,54 @@ function specificExperienceHandler() {
 function experienceDataPrinter(companyName) {
     clear();
     console.log("\n");
-    console.log(" ", header(companyName));
-    var date = resume["Past Experience"][companyName][0];
-    var title = resume["Past Experience"][companyName][1];
-    var responsibilities = resume["Past Experience"][companyName][2]["Responsibilities"];
+    centerText(companyName, regular.bold);
+    drawTopDivider();
 
-    dataStylerAndPrint(date);
-    dataStylerAndPrint(title);
+
+    var title = resume["Past Experiences"][companyName][0];
+    var date = resume["Past Experiences"][companyName][1];
+    var responsibilities = resume["Past Experiences"][companyName][2];
+    centerText(title, cyan);
+    centerText(date, yellow);
+    console.log("\n");
+    // console.log(cyan(title));
+    // console.log(yellow(date));
+
+    var longest = 0;
     responsibilities.forEach(function(item) {
-        console.log(" ", " ", "-", item);
-    });
+        longest = Math.max(longest, item.length);
+    })
+    responsibilities.forEach(function(item) {
+        // console.log(" ", " ", "-", item);
+        alignText(item, regular, longest);
+    })
+    console.log("\n")
+    drawBotDivider();  
     return;
 }
 
 function projectDataPrinter(projectName) {
     clear();
     console.log("\n");
-    console.log(" ", header(projectName));
+    centerText(projectName, regular.bold);
+    drawTopDivider();
 
     var techStack = resume["Projects"][projectName][0];
-    var details = resume["Projects"][projectName][1]["Details"];
+    var details = resume["Projects"][projectName][1]
+    centerText(techStack, cyan);
+    console.log("\n");
 
-    dataStylerAndPrint(techStack);
+
+    var longest = 0;
     details.forEach(function(item) {
-        console.log(" ", " ", "-", item);
+        longest = Math.max(longest, item.length);
     })
+    details.forEach(function(item) {
+        // console.log(" ", " ", "-", item);
+        alignText(item, regular, longest);
+    })
+    console.log("\n")
+    drawBotDivider();  
     return;
 
 }
@@ -278,6 +404,7 @@ function specificProjectHandler() {
             }
 
             if (choice.projectOptions == "Exit") {
+            	clear();
                 return;
             }
 
@@ -318,6 +445,7 @@ function actionHandler(previousPage) {
                     resumeHandler();
                     return;
                 } else {
+                	clear();
                     return;
                 }
             });
@@ -336,6 +464,7 @@ function actionHandler(previousPage) {
                 }
 
                 if (choice.exitBack == "Exit") {
+                	clear();
                     return;
                 }
 
@@ -353,7 +482,7 @@ function actionHandler(previousPage) {
                             skillHandler();
                             return;
 
-                        case "Past Experience":
+                        case "Past Experiences":
                             experienceHandler();
                             return;
 
@@ -364,18 +493,6 @@ function actionHandler(previousPage) {
                 }
             });
     }
-}
-
-function dataStylerAndPrint(string) {
-    var colonIndex = string.indexOf(":");
-    if (colonIndex != -1) {
-        var beforeColon = string.slice(0, colonIndex + 1);
-        var afterColon = string.slice(colonIndex + 1);
-        console.log(" ", blue(beforeColon), chalk.bold.white(afterColon));
-    } else {
-        console.log(" ", blue(string));
-    }
-
 }
 
 main();
