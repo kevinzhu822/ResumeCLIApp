@@ -21,12 +21,14 @@ var red = chalk.red.underline;
 
 var resume = require("./resume.json");
 
+var vistorInfo = {"Name": "N/A", "Email": "N/A"};
+
 
 var mainMenu = {
     type: "list",
     name: "resumeOptions",
     message: yellow("What do you want to know about me?"),
-    choices: [...Object.keys(resume), new inquirer.Separator(""), "Exit"],
+    choices: [...Object.keys(resume), new inquirer.Separator(""), "Send Kevin a Message (Experimental)", "Exit"],
     pageSize: "10"
 };
 
@@ -52,6 +54,12 @@ var projectsMenu = {
     name: "projectOptions",
     message: yellow("Which of my projects do you want to learn more about?"),
     choices: [...Object.keys(resume["Projects"]), new inquirer.Separator(), "Back to Main Menu", "Exit"]
+};
+
+var messageToKevin = {
+	type: 'input',
+	name: 'message',
+	message: cyan('Enter your message to Kevin here:')
 };
 
 var introductionQuestions = [
@@ -151,6 +159,8 @@ async function introduction(inquirer) {
 		    console.clear();
 		    console.log("\n");
 		    console.log(" ", `Hey ${intro.name}!`);
+		    vistorInfo["Name"] = intro.name;
+		    vistorInfo["Email"] = intro.email;
 		    recordVisitor(intro.name, intro.email);
 	  	})
 }	
@@ -211,6 +221,11 @@ function resumeHandler(init) {
         if (answer.resumeOptions == "Projects") {
             projectHandler();
             return;
+        }
+
+        if (answer.resumeOptions == "Send Kevin a Message (Experimental)") {
+        	messageHandler();
+        	return;
         }
     });
 }
@@ -509,6 +524,35 @@ function actionHandler(previousPage) {
                 }
             });
     }
+}
+
+function sendMessage(message) {
+    var options = { method: 'POST',
+        url: 'https://resumedata-ff5c.restdb.io/rest/visitormessages',
+        headers: 
+            { 'cache-control': 'no-cache',
+             'x-apikey': '030e3abaeef7a980d7e8fcf25f331a2096ac5',
+            'content-type': 'application/json' },
+        body: { Name: vistorInfo["Name"], Email: vistorInfo["Email"], Message: message},
+        json: true };
+
+    request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+});
+
+}
+
+async function messageHandler() {
+    clear();
+    console.log("\n");
+    await inquirer.prompt(messageToKevin).then(msg => {
+		    console.log("\n");
+		    console.log(cyan("Thanks for the message!"));
+		    sendMessage(msg.message)
+	  	})
+    console.log("\n");
+    actionHandler();
+    return;
 }
 
 main();

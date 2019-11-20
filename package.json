@@ -1,6 +1,6 @@
 {
   "name": "kevinzhu",
-  "version": "1.1.2",
+  "version": "1.1.4",
   "description": "Kevin Zhu's Interactive Resume",
   "main": "index.js",
   "scripts": {
