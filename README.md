@@ -14,12 +14,13 @@ npm install kevinzhu
 ```
 
 ## Usage
-Viewing KevinZhu is very simple. Just open kevinzhu in your Node.js terminal/command prompt.
+Viewing KevinZhu is very simple. Make sure your terminal window isn't too small and open kevinzhu in your Node.js terminal/command prompt.
+(It should open properly as long as your terminal isn't square-shaped.)
 
 ```bash
 kevinzhu
 ```
-If KevinZhu was not installed globally, you can use npx to open the app (but it looks slightly worse).
+If KevinZhu was not installed globally, you can use npx to open the app.
 
 ```bash
 npx kevinzhu
