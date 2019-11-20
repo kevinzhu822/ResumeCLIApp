@@ -12,9 +12,12 @@ var request = require("request");
 
 var header = chalk.bold.underline;
 var yellow = chalk.yellow.bold;
+var green = chalk.green;
 var blue = chalk.blue.bold;
 var cyan = chalk.cyan;
 var regular = chalk.white;
+var red = chalk.red.underline;
+
 
 var resume = require("./resume.json");
 
@@ -120,7 +123,20 @@ function centerTextMultiple(text1, text2, style1) {
 	console.log(" ".repeat(sideSpace) + style1(text1) + text2 + " ".repeat(sideSpace));
 }
 
+
+function checkTerminalSize() {
+	return widthOfTerminal - 89 > 10;
+}
+
 async function main() {
+	if (!checkTerminalSize()) {
+		console.log("\n");
+
+		console.log(red("Your terminal window is too small!"));
+		console.log("\n");
+		console.log(green("Please make your terminal window wide enough to display this sentence on a single line and restart the app."));
+		return;
+	}
 	clear();
 	await introduction(inquirer);
     resumeHandler(true);
