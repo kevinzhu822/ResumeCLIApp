@@ -47,7 +47,7 @@
 							"NPM Resume Package (This Resume You're Reading Right Now)":
 								[
 									"Node.js, JavaScript, Chalk, Inquirer, NoSQL, RestDB",
-									["Created an installable CLI app that runs an interactive version of my resume", "Makes POST requests to my API", "Published on npmjs.com"]
+									["Created an installable CLI app that runs an interactive version of my resume", "Makes POST requests to my API", "Allows viewer to send me text messages", "Published on npmjs.com"]
 									
 								], 
 
