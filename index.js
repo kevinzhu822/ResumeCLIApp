@@ -339,8 +339,8 @@ function specificExperienceHandler() {
                 return;
             }
 
-            if (choice.experienceOptions == "X-Matik Inc.") {
-                experienceDataPrinter("X-Matik Inc.");
+            if (choice.experienceOptions == "X-Matik Inc") {
+                experienceDataPrinter("X-Matik Inc");
                 console.log("\n");
                 actionHandler("Past Experiences");
 
@@ -352,8 +352,8 @@ function specificExperienceHandler() {
                 actionHandler("Past Experiences");
             }
 
-            if (choice.experienceOptions == "Uber Freight") {
-                experienceDataPrinter("Uber Freight");
+            if (choice.experienceOptions == "Bill.com") {
+                experienceDataPrinter("Bill.com");
                 console.log("\n");
                 actionHandler("Past Experiences");
             }

@@ -1,11 +1,11 @@
 
 {
-	"Contact Information" : ["LinkedIn: https://www.linkedin.com/in/kevinjzhu/","NPM: https://www.npmjs.com/~kevinzhu822", "Github: https://github.com/kevinzhu822", "Email: zhu.kevin@berkeley.edu"],
+	"Contact Information" : ["LinkedIn: https://www.linkedin.com/in/kevinjzhu/","Website: kevin-zhu.com", "Github: https://github.com/kevinzhu822", "Email: zhu.kevin@berkeley.edu"],
 
-	"Education" : ["College: University of California, Berkeley", "Major: Computer Science", "Relevant Coursework: Data Structures, Discrete Math, Linear Algebra, Computer Architecture, Algorithms, Data Science"],
+	"Education" : ["College: University of California, Berkeley", "Major: Computer Science", "Relevant Coursework: Database Systems, Data Structures, Computer Architecture, Algorithms, Data Science"],
 
 	"Skills" : [
-		"Frontend: Angular, HTML/CSS, JavaScript, jQuery, Cypress", 
+		"Frontend: Angular, React, JavaScript, jQuery, Cypress", 
 		"Backend: Node.js, Flask, GraphQL, Python, Java", 
 		"Database/Data Science: Firebase, Google Cloud Platform, NumPy, Pandas, SQL",
 		"Other Languages: C, RISC-V Assembly, Lisp",
@@ -14,13 +14,22 @@
 			   ],
 
 	"Past Experiences" : {
-							"X-Matik Inc." : 
+							"Bill.com" :
+								[
+									"Software Engineering Intern",
+									"June 2020 - August 2020",
+
+									["Significantly decreased customer support triage time by implementing new status page using Angular", "Using Java to design a support flow to reduce customer complaint tickets"]
+
+								],
+
+							"X-Matik Inc" : 
 								[
 
 									"Software Engineering Intern",
 									"June 2019 - August 2019",
 									
-									["Designed parts of a self-driving add-on kit for any car", "Built and conducted firmware tests in C to ensure components were functional and reliable", "Wrote software in Python to process and analyze telematics data from vehicles", "Designed PCBs using SOLIDWORKS PCB to perform specific tasks"]
+									["Designed PCB components of a self-driving add-on kit", "Built and conducted firmware tests in C to ensure components were functional and reliable", "Wrote software in Python to process and analyze telematics data from vehicles"]
 									
 								],
 
@@ -29,18 +38,10 @@
 									"Software Developer",
 									"August 2019 - Present",
 
-									["Developed a bill-payment portal for Bill.com that can manage client accounts and make payments", "Implemented using Angular, Apollo Client, GraphQL, Cypress", "Participated in weekly scrum meetings"]
-									
-								],
-
-							"Uber Freight" : 
-								[
-									"Contract Consultant",
-									"January 2019 - May 2019",
-									
-									["Aided Uber Freight in improving the CSR side of its operations", "Developed mock-up for improvements to the Uber Freight mobile app", "Presented recommendations on improving the environmental sustainability of their operations"]
+									["Developed a simplified bill-payment portal for Bill.com that manages client accounts and makes payments using Angular", "Implemented full stack onboarding web application for Middesk using React and PostgreSQL, using Ruby for the backend"]
 									
 								]
+
 					    },
 
 	"Projects": {
