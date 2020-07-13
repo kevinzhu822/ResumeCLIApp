@@ -190,7 +190,7 @@ function resumeHandler(init) {
 		clear()
 	}
 	console.log('\n');
-    console.log(" ", blue.underline("Kevin Zhu's Resume"));
+    console.log(" ", blue.underline("Kevin Zhu's Resume (Updated as of 7/13/2020)"));
     inquirer.prompt(mainMenu).then(answer => {
         if (answer.resumeOptions == "Exit") {
         	clear();
