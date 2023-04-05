@@ -1,74 +1,100 @@
-
 {
-	"Contact Information" : ["LinkedIn: https://www.linkedin.com/in/kevinjzhu/","Website: kevin-zhu.com", "Github: https://github.com/kevinzhu822", "Email: zhu.kevin@berkeley.edu"],
-
-	"Education" : ["College: University of California, Berkeley", "Major: Computer Science", "Relevant Coursework: Database Systems, Data Structures, Computer Architecture, Algorithms, Data Science"],
-
-	"Skills" : [
-		"Frontend: Angular, React, JavaScript, jQuery, Cypress", 
-		"Backend: Node.js, Flask, GraphQL, Python, Java", 
-		"Database/Data Science: Firebase, Google Cloud Platform, NumPy, Pandas, SQL",
-		"Other Languages: C, RISC-V Assembly, Lisp",
-		"Graphic Design: Adobe Illustrator, Photoshop, Lightroom",
-		"PCB Design: SOLIDWORKS PCB, CircuitMaker"
-			   ],
-
-	"Past Experiences" : {
-							"Bill.com" :
-								[
-									"Software Engineering Intern",
-									"June 2020 - August 2020",
-
-									["Significantly decreased customer support triage time by implementing new status page using Angular", "Using Java to design a support flow to reduce customer complaint tickets"]
-
-								],
-
-							"X-Matik Inc" : 
-								[
-
-									"Software Engineering Intern",
-									"June 2019 - August 2019",
-									
-									["Designed PCB components of a self-driving add-on kit", "Built and conducted firmware tests in C to ensure components were functional and reliable", "Wrote software in Python to process and analyze telematics data from vehicles"]
-									
-								],
-
-							"CodeBase" : 
-								[	
-									"Software Developer",
-									"August 2019 - Present",
-
-									["Developed a simplified bill-payment portal for Bill.com that manages client accounts and makes payments using Angular", "Implemented full stack onboarding web application for Middesk using React and PostgreSQL, using Ruby for the backend"]
-									
-								]
-
-					    },
-
-	"Projects": {
-							"NPM Resume Package (This Resume You're Reading Right Now)":
-								[
-									"Node.js, JavaScript, Chalk, Inquirer, NoSQL, RestDB",
-									["Created an installable CLI app that runs an interactive version of my resume", "Makes POST requests to my API", "Allows viewer to send me text messages", "Published on npmjs.com"]
-									
-								], 
-
-							"HealthClear" :
-								[
-
-									"JavaScript, Python, Flask, BeautifulSoup, Bootstrap, jQuery",
-										
-									["Built web app to improve healthcare transparency by finding cheapest hospital costs", "App connects to Google Maps API to draw customized maps and Uber API for real-time ride data", "Accurate hospital data is scraped using BeautifulSoup from an online database"]
-									
-								],
-
-							"Mobile Melanoma Tracker" : 
-								[
-									"Android Studio, Firebase, Google Cloud Platform, MATLAB",
-									
-									["Built Android app that uses computer vision to track progression of melanoma", "MATLAB to JavaScript converter tool used to run MATLAB code in cloud", "Backend and image processing utilize Firebase and Google Cloud Platform"]
-									
-								]
-
-							
-						}
+  "Contact Information": [
+    "LinkedIn: https://www.linkedin.com/in/kevinjzhu/",
+    "Website: kevin-zhu.com",
+    "Github: https://github.com/kevinzhu822",
+    "Email: zhu.kevin@berkeley.edu"
+  ],
+  "Education": [
+    "College: University of California, Berkeley",
+    "Major: Computer Science",
+    "GPA: 3.60",
+    "Relevant Coursework: Database Systems, Data Structures, Computer Architecture, Algorithms, Data Science"
+  ],
+  "Skills": [
+    "Frontend: Angular, React, JavaScript, TypeScript, Apollo",
+    "Backend: Node.js, Flask, GraphQL, Python, Java, Go, Kotlin, Ruby, SQL",
+    "Cloud: AWS, EC2, S3, DynamoDB, Redshift, Kinesis, Google Cloud Platform",
+    "Other Languages: C, RISC-V Assembly, x86 Assembly",
+    "Graphic Design: Adobe Illustrator, Photoshop, Lightroom",
+    "PCB Design: SOLIDWORKS PCB, CircuitMaker"
+  ],
+  "Past Experiences": {
+    "Amazon Web Services": [
+      "Software Development Engineer I",
+      "March 2022 - Present",
+      [
+        "Designed, developed and launched new EC2 ReportInstanceStatus API, serving thousands of requests per day (https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ReportInstanceStatus.html)",
+        "Led initiative to reduce EC2 server impairment recidivism from 7% to 2% of total AWS fleet, with cost savings in the high tens of millions of dollars",
+        "Identified and permanently resolved long-standing issue that impacted 42,000 EC2 instances per month on my own accord, receiving an accolade for my “customer obsession",
+        "Single-handedly launched critical EC2 infra services in 6 new AWS regions distributed across the globe",
+        "Worked with Java, Lambda, Redshift, DynamoDB, CloudFormation and other AWS services"
+      ]
+    ],
+    "ooopyodsfads": [
+      "Software Development Engineer Intern",
+      "May 2021 - August 2021",
+      [
+        "Created and deployed a new data visualization pipeline for server health signals to over 4 million servers worldwide, removing ~80% of the work typically needed to onboard new failure signals",
+        "Automated creation of support tickets to relevant stakeholders when EC2 servers fail repeatedly",
+        "Worked with Java, Kotlin, Kinesis, Redshift, DynamoDB, and Grafana"
+      ]
+    ],
+    "Bill.com": [
+      "Software Engineering Intern",
+      "June 2020 - January 2021",
+      [
+        "Launched new Angular-based status page used by 70% of all Bill.com customers",
+        "Constructed GraphQL layer to connect backend API to frontend using Apollo Server",
+        "Developed API endpoints in Bill.com core product using Java to filter and sort bills and invoices",
+        "Worked with TypeScript, Angular, Apollo, GraphQL"
+      ]
+    ],
+    "X-Matik Inc": [
+      "Software Engineering Intern",
+      "June 2019 - August 2019",
+      [
+        "Designed and tested PCBs used to enable self-driving in any vehicle",
+        "Developed rigorous firmware testing suite in C to ensure component reliability and safety",
+        "Rebuilt X-Matik web application to improve accessibility and functionality",
+        "Automated vehicle telematics analysis procedure, reducing effort required by 80%"
+      ]
+    ],
+    "CodeBase": [
+      "Software Developer / Project Manager / Internal Vice President",
+      "August 2019 - December 2021",
+      [
+        "Led team of 6 engineers to rebuild Aurora Solar’s admin platform, migrating from Ember to React",
+        "Built full stack web application from scratch for Middesk using React, PostgreSQL and Ruby on Rails",
+        "Configured backend to make POST requests to Middesk API and cache current session data via Redis"
+      ]
+    ]
+  },
+  "Projects": {
+    "NPM Resume Package (This Resume You're Reading Right Now)": [
+      "Node.js, JavaScript, Chalk, Inquirer, NoSQL, RestDB",
+      [
+        "Created an installable CLI app that runs an interactive version of my resume",
+        "Makes POST requests to my API",
+        "Allows viewer to send me text messages",
+        "Published on npmjs.com"
+      ]
+    ],
+    "HealthClear": [
+      "JavaScript, Python, Flask, BeautifulSoup, Bootstrap, jQuery",
+      [
+        "Built web app to improve healthcare transparency by finding cheapest hospital costs",
+        "App connects to Google Maps API to draw customized maps and Uber API for real-time ride data",
+        "Accurate hospital data is scraped using BeautifulSoup from an online database"
+      ]
+    ],
+    "Mobile Melanoma Tracker": [
+      "Android Studio, Firebase, Google Cloud Platform, MATLAB",
+      [
+        "Built Android app that uses computer vision to track progression of melanoma",
+        "MATLAB to JavaScript converter tool used to run MATLAB code in cloud",
+        "Backend and image processing utilize Firebase and Google Cloud Platform"
+      ]
+    ]
+  }
 }
