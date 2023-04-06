@@ -8,15 +8,13 @@ var clear = require('clear');
 var request = require("request");
 
 
-
-
-var header = chalk.bold.underline;
-var yellow = chalk.yellow.bold;
-var green = chalk.green;
-var blue = chalk.blue.bold;
-var cyan = chalk.cyan;
-var regular = chalk.white;
-var red = chalk.red.underline;
+const header = chalk.bold.underline;
+const yellow = chalk.yellow.bold;
+const green = chalk.green;
+const blue = chalk.blue.bold;
+const cyan = chalk.cyan;
+const regular = chalk.white;
+const red = chalk.red.underline;
 
 
 var resume = require("./resume.json");
@@ -66,7 +64,7 @@ var introductionQuestions = [
 	{
     type: 'input',
     name: "name",
-    message: "What's your name?",
+    message: yellow("What's your name?"),
     validate: (res) => {
       if(!res.length || res=="abc" || res=="asd" || res=="xyz" || res=="aaa")
         return('Invalid name');
@@ -76,7 +74,7 @@ var introductionQuestions = [
   {
     type: 'input',
     name: "email",
-    message: "What's your email?",
+    message: yellow("What's your email? (for tracking purposes)"),
     validate: (res) => {
       const reg = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
       if(reg.test(res))
@@ -86,18 +84,18 @@ var introductionQuestions = [
   }
 ];
 
-const widthOfTerminal = process.stdout.columns;
+var widthOfTerminal = process.stdout.columns;
 
 function drawTopDivider() {
-	console.log("┏" + "━".repeat(widthOfTerminal-4) + "┓");
+	console.log("┏" + "━".repeat(widthOfTerminal-2) + "┓");
 }
 
 function drawMidDivider() {
-	console.log("┃" + "━".repeat(widthOfTerminal-4) + "┃");
+	console.log("┃" + "━".repeat(widthOfTerminal-2) + "┃");
 }
 
 function drawBotDivider() {
-	console.log("┗" + "━".repeat(widthOfTerminal-4) + "┛");
+	console.log("┗" + "━".repeat(widthOfTerminal-2) + "┛");
 }
 
 function centerText(text, style) {
@@ -115,9 +113,14 @@ function alignText(text, style, longest) {
 	if (leftoverSpaces % 2 != 0) {
 		leftoverSpaces = leftoverSpaces - 1;
 	}
-
 	var sideSpace = leftoverSpaces / 2;
+    var subPoint;
+    if (text.indexOf('*') != -1) {
+        subPoint = text.slice(-1 * (text.length - text.indexOf('*') -1));
+        text = text.slice(0, text.indexOf('*'));
+    }
 	console.log(" ".repeat(sideSpace-1) + "- "+style(text) + " ".repeat(sideSpace-1));
+    subPoint && console.log(" ".repeat(sideSpace-1) + "  "+style(subPoint) + " ".repeat(sideSpace-1));
 
 }
 
@@ -153,7 +156,7 @@ async function main() {
 
 async function introduction(inquirer) {
 		console.clear();
-		console.log("Hey! Thanks for visiting my resume!");
+		console.log(blue("Hey! Thanks for visiting my resume!"));
 		console.log("Before we begin, can you answer a few questions?");
 		await inquirer.prompt(introductionQuestions).then(intro => {
 		    console.clear();
@@ -190,7 +193,7 @@ function resumeHandler(init) {
 		clear()
 	}
 	console.log('\n');
-    console.log(" ", blue.underline("Kevin Zhu's Resume (Updated as of 7/13/2020)"));
+    console.log(" ", blue.underline("Kevin Zhu's Resume (Updated as of 4/04/2023)"));
     inquirer.prompt(mainMenu).then(answer => {
         if (answer.resumeOptions == "Exit") {
         	clear();
@@ -339,11 +342,10 @@ function specificExperienceHandler() {
                 return;
             }
 
-            if (choice.experienceOptions == "X-Matik Inc") {
+            if (choice.experienceOptions == "X-Matik") {
                 experienceDataPrinter("X-Matik Inc");
                 console.log("\n");
                 actionHandler("Past Experiences");
-
             }
 
             if (choice.experienceOptions == "CodeBase") {
@@ -354,6 +356,18 @@ function specificExperienceHandler() {
 
             if (choice.experienceOptions == "Bill.com") {
                 experienceDataPrinter("Bill.com");
+                console.log("\n");
+                actionHandler("Past Experiences");
+            }
+
+            if (choice.experienceOptions == "Amazon Web Services") {
+                experienceDataPrinter("Amazon Web Services");
+                console.log("\n");
+                actionHandler("Past Experiences");
+            }
+
+            if (choice.experienceOptions == "Amazon Web Services (Internship)") {
+                experienceDataPrinter("Amazon Web Services (Internship)");
                 console.log("\n");
                 actionHandler("Past Experiences");
             }
@@ -376,17 +390,21 @@ function experienceDataPrinter(companyName) {
     centerText(title, cyan);
     centerText(date, yellow);
     console.log("\n");
-    // console.log(cyan(title));
-    // console.log(yellow(date));
 
     var longest = 0;
     responsibilities.forEach(function(item) {
-        longest = Math.max(longest, item.length);
+        let currLength = item.indexOf('*') == -1 ? item.length : item.indexOf('*');
+        longest = Math.max(longest, currLength);
     })
-    responsibilities.forEach(function(item) {
-        // console.log(" ", " ", "-", item);
-        alignText(item, regular, longest);
-    })
+    for (let i = 0; i < responsibilities.length; i++) {
+
+        if (responsibilities[i].indexOf("Worked with") != -1) {
+            alignText(responsibilities[i], blue, longest);
+        } else {
+            alignText(responsibilities[i], regular, longest);
+        }
+    }
+    
     console.log("\n")
     drawBotDivider();  
     return;

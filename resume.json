@@ -1,9 +1,10 @@
 {
   "Contact Information": [
     "LinkedIn: https://www.linkedin.com/in/kevinjzhu/",
-    "Website: kevin-zhu.com",
+    "Website: https://www.kevin-zhu.com",
     "Github: https://github.com/kevinzhu822",
-    "Email: zhu.kevin@berkeley.edu"
+    "Email: zhu.kevin@berkeley.edu",
+    "PDF Resume: https://www.kevin-zhu.com/resume.pdf"
   ],
   "Education": [
     "College: University of California, Berkeley",
@@ -24,18 +25,19 @@
       "Software Development Engineer I",
       "March 2022 - Present",
       [
-        "Designed, developed and launched new EC2 ReportInstanceStatus API, serving thousands of requests per day (https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ReportInstanceStatus.html)",
-        "Led initiative to reduce EC2 server impairment recidivism from 7% to 2% of total AWS fleet, with cost savings in the high tens of millions of dollars",
-        "Identified and permanently resolved long-standing issue that impacted 42,000 EC2 instances per month on my own accord, receiving an accolade for my “customer obsession",
+        "Designed, developed and launched new EC2 ReportInstanceStatus API, serving thousands of requests per day",
+        "Read more about the API here: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ReportInstanceStatus.html",
+        "Led initiative to reduce EC2 server impairment recidivism from 7% to 2% of total AWS fleet *with cost savings in the high tens of millions of dollars",
+        "Identified and permanently resolved long-standing issue that impacted 42,000 EC2 instances per month on my own accord, *receiving an accolade for my “customer obsession”",
         "Single-handedly launched critical EC2 infra services in 6 new AWS regions distributed across the globe",
         "Worked with Java, Lambda, Redshift, DynamoDB, CloudFormation and other AWS services"
       ]
     ],
-    "ooopyodsfads": [
+    "Amazon Web Services (Internship)": [
       "Software Development Engineer Intern",
       "May 2021 - August 2021",
       [
-        "Created and deployed a new data visualization pipeline for server health signals to over 4 million servers worldwide, removing ~80% of the work typically needed to onboard new failure signals",
+        "Created and deployed a new data visualization pipeline for server health signals to over 4 million servers worldwide, *removing ~80% of the work typically needed to onboard new failure signals",
         "Automated creation of support tickets to relevant stakeholders when EC2 servers fail repeatedly",
         "Worked with Java, Kotlin, Kinesis, Redshift, DynamoDB, and Grafana"
       ]
@@ -50,23 +52,25 @@
         "Worked with TypeScript, Angular, Apollo, GraphQL"
       ]
     ],
-    "X-Matik Inc": [
+    "X-Matik": [
       "Software Engineering Intern",
       "June 2019 - August 2019",
       [
         "Designed and tested PCBs used to enable self-driving in any vehicle",
         "Developed rigorous firmware testing suite in C to ensure component reliability and safety",
         "Rebuilt X-Matik web application to improve accessibility and functionality",
-        "Automated vehicle telematics analysis procedure, reducing effort required by 80%"
+        "Automated vehicle telematics analysis procedure, reducing effort required by 80%",
+        "Worked with Python, Rust, C, SOLIDWORKS PCB"
       ]
     ],
-    "CodeBase": [
+    "Codebase": [
       "Software Developer / Project Manager / Internal Vice President",
       "August 2019 - December 2021",
       [
         "Led team of 6 engineers to rebuild Aurora Solar’s admin platform, migrating from Ember to React",
         "Built full stack web application from scratch for Middesk using React, PostgreSQL and Ruby on Rails",
-        "Configured backend to make POST requests to Middesk API and cache current session data via Redis"
+        "Configured backend to make POST requests to Middesk API and cache current session data via Redis",
+        "Worked with React, PostgreSQL, Redis, Angular"
       ]
     ]
   },
@@ -75,9 +79,9 @@
       "Node.js, JavaScript, Chalk, Inquirer, NoSQL, RestDB",
       [
         "Created an installable CLI app that runs an interactive version of my resume",
-        "Makes POST requests to my API",
+        "Makes POST requests to my API endpoint connected to a NoSQL database",
         "Allows viewer to send me text messages",
-        "Published on npmjs.com"
+        "Published on npmjs.com: https://www.npmjs.com/package/kevinzhu"
       ]
     ],
     "HealthClear": [
