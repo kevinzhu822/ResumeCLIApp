@@ -26,7 +26,7 @@ var mainMenu = {
     type: "list",
     name: "resumeOptions",
     message: yellow("What do you want to know about me?"),
-    choices: [...Object.keys(resume), new inquirer.Separator(""), "Send Kevin a Message (Experimental)", "Exit"],
+    choices: [...Object.keys(resume), new inquirer.Separator(""), "Send Kevin a Message", "Exit"],
     pageSize: "10"
 };
 
@@ -57,30 +57,30 @@ var projectsMenu = {
 var messageToKevin = {
 	type: 'input',
 	name: 'message',
-	message: cyan('Enter your message to Kevin here:')
+	message: blue('Enter your message to Kevin here:')
 };
 
 var introductionQuestions = [
 	{
     type: 'input',
     name: "name",
-    message: yellow("What's your name?"),
+    message: yellow("Enter your name here:"),
     validate: (res) => {
       if(!res.length || res=="abc" || res=="asd" || res=="xyz" || res=="aaa")
         return('Invalid name');
       else return true;
     }
-  },
-  {
-    type: 'input',
-    name: "email",
-    message: yellow("What's your email? (for tracking purposes)"),
-    validate: (res) => {
-      const reg = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-      if(reg.test(res))
-        return true;
-      else return('Please enter valid email.');
-    }
+  // },
+  // {
+  //   type: 'input',
+  //   name: "email",
+  //   message: yellow("What's your email? (for tracking purposes)"),
+  //   validate: (res) => {
+  //     const reg = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+  //     if(reg.test(res))
+  //       return true;
+  //     else return('Please enter valid email.');
+  //   }
   }
 ];
 
@@ -136,18 +136,25 @@ function centerTextMultiple(text1, text2, style1) {
 
 
 function checkTerminalSize() {
-	return widthOfTerminal - 89 > 10;
+    widthOfTerminal = process.stdout.columns;
+	return widthOfTerminal - 120 > 10;
+}
+
+function handleTerminalSize() {
+    if (!checkTerminalSize()) {
+        console.log("\n");
+
+        console.log(red("Your terminal window is too small!"));
+        console.log("\n");
+        console.log(red("****Please adjust your terminal window width so that it is wide enough to display this sentence on a single line and try again.****"));
+        return true;
+    }
 }
 
 async function main() {
-	if (!checkTerminalSize()) {
-		console.log("\n");
-
-		console.log(red("Your terminal window is too small!"));
-		console.log("\n");
-		console.log(green("Please make your terminal window wide enough to display this sentence on a single line and restart the app."));
-		return;
-	}
+	if (handleTerminalSize()) {
+        return;
+    }
 	clear();
 	await introduction(inquirer);
     resumeHandler(true);
@@ -156,15 +163,15 @@ async function main() {
 
 async function introduction(inquirer) {
 		console.clear();
-		console.log(blue("Hey! Thanks for visiting my resume!"));
-		console.log("Before we begin, can you answer a few questions?");
+		console.log(blue("Hey, thanks for visiting my resume!"));
+		console.log("Before we begin, can you please tell me your name?");
 		await inquirer.prompt(introductionQuestions).then(intro => {
 		    console.clear();
 		    console.log("\n");
 		    console.log(" ", `Hey ${intro.name}!`);
 		    vistorInfo["Name"] = intro.name;
-		    vistorInfo["Email"] = intro.email;
-		    recordVisitor(intro.name, intro.email);
+		    vistorInfo["Email"] = "Emails are not being tracked";
+		    recordVisitor(vistorInfo["Name"], vistorInfo["Email"]);
 	  	})
 }	
 
@@ -192,8 +199,11 @@ function resumeHandler(init) {
 	if (init == null) {
 		clear()
 	}
+    if (handleTerminalSize()) {
+        return;
+    }
 	console.log('\n');
-    console.log(" ", blue.underline("Kevin Zhu's Resume (Updated as of 4/04/2023)"));
+    console.log(" ", regular("Kevin Zhu's Resume (Updated as of 4/04/2023)"));
     inquirer.prompt(mainMenu).then(answer => {
         if (answer.resumeOptions == "Exit") {
         	clear();
@@ -226,7 +236,7 @@ function resumeHandler(init) {
             return;
         }
 
-        if (answer.resumeOptions == "Send Kevin a Message (Experimental)") {
+        if (answer.resumeOptions == "Send Kevin a Message") {
         	messageHandler();
         	return;
         }
@@ -247,6 +257,9 @@ function dataStylerAndPrint(string) {
 
 function contactHandler() {
     clear();
+    if (handleTerminalSize()) {
+        return;
+    }
     console.log("\n");
     centerText("Contact Information", regular.bold);
 	drawTopDivider();
@@ -256,7 +269,7 @@ function contactHandler() {
         var beforeColon = info.slice(0, colonIndex);
         var afterColon = info.slice(colonIndex + 1);
         centerText(beforeColon, yellow);
-        centerText(afterColon, cyan)
+        centerText(afterColon, blue)
         counter = counter + 1;
         if (counter == resume[`${"Contact Information"}`].length) {
         	drawBotDivider();
@@ -272,6 +285,9 @@ function contactHandler() {
 
 function educationHandler() {
     clear();
+    if (handleTerminalSize()) {
+        return;
+    }
     console.log("\n");
     centerText("Education", regular.bold);
     drawTopDivider();
@@ -281,7 +297,7 @@ function educationHandler() {
         var beforeColon = info.slice(0, colonIndex);
         var afterColon = info.slice(colonIndex + 1);
         centerText(beforeColon, yellow);
-        centerText(afterColon, cyan)
+        centerText(afterColon, blue)
         counter = counter + 1;
         if (counter == resume[`${"Education"}`].length) {
         	drawBotDivider();
@@ -297,6 +313,9 @@ function educationHandler() {
 
 function skillHandler() {
     clear();
+    if (handleTerminalSize()) {
+        return;
+    }
     console.log("\n");
     centerText("Skills", regular.bold);
     drawTopDivider();
@@ -306,7 +325,7 @@ function skillHandler() {
         var beforeColon = info.slice(0, colonIndex);
         var afterColon = info.slice(colonIndex + 1);
         centerText(beforeColon, yellow);
-        centerText(afterColon, cyan)
+        centerText(afterColon, blue)
         counter = counter + 1;
         if (counter == resume[`${"Skills"}`].length) {
         	drawBotDivider();
@@ -323,11 +342,17 @@ function skillHandler() {
 
 function experienceHandler() {
     clear();
+    if (handleTerminalSize()) {
+        return;
+    }
     specificExperienceHandler();
     return;
 }
 
 function specificExperienceHandler() {
+    if (handleTerminalSize()) {
+        return;
+    }
     console.log("\n");
     console.log(" ", header("Past Experiences"));
     inquirer.prompt(experienceMenu)
@@ -342,32 +367,32 @@ function specificExperienceHandler() {
                 return;
             }
 
-            if (choice.experienceOptions == "X-Matik") {
-                experienceDataPrinter("X-Matik Inc");
+            if (choice.experienceOptions.includes("X-Matik")) {
+                experienceDataPrinter(choice.experienceOptions);
                 console.log("\n");
                 actionHandler("Past Experiences");
             }
 
-            if (choice.experienceOptions == "CodeBase") {
-                experienceDataPrinter("CodeBase");
+            if (choice.experienceOptions.includes("Codebase")) {
+                experienceDataPrinter(choice.experienceOptions);
                 console.log("\n");
                 actionHandler("Past Experiences");
             }
 
-            if (choice.experienceOptions == "Bill.com") {
-                experienceDataPrinter("Bill.com");
+            if (choice.experienceOptions.includes("Bill.com")) {
+                experienceDataPrinter(choice.experienceOptions);
                 console.log("\n");
                 actionHandler("Past Experiences");
             }
 
-            if (choice.experienceOptions == "Amazon Web Services") {
-                experienceDataPrinter("Amazon Web Services");
+            if (choice.experienceOptions == "Amazon Web Services (Full-Time)") {
+                experienceDataPrinter(choice.experienceOptions);
                 console.log("\n");
                 actionHandler("Past Experiences");
             }
 
             if (choice.experienceOptions == "Amazon Web Services (Internship)") {
-                experienceDataPrinter("Amazon Web Services (Internship)");
+                experienceDataPrinter(choice.experienceOptions);
                 console.log("\n");
                 actionHandler("Past Experiences");
             }
@@ -378,6 +403,10 @@ function specificExperienceHandler() {
 
 
 function experienceDataPrinter(companyName) {
+    if (handleTerminalSize()) {
+        return;
+    }
+
     clear();
     console.log("\n");
     centerText(companyName, regular.bold);
@@ -387,7 +416,7 @@ function experienceDataPrinter(companyName) {
     var title = resume["Past Experiences"][companyName][0];
     var date = resume["Past Experiences"][companyName][1];
     var responsibilities = resume["Past Experiences"][companyName][2];
-    centerText(title, cyan);
+    centerText(title, blue);
     centerText(date, yellow);
     console.log("\n");
 
@@ -399,7 +428,7 @@ function experienceDataPrinter(companyName) {
     for (let i = 0; i < responsibilities.length; i++) {
 
         if (responsibilities[i].indexOf("Worked with") != -1) {
-            alignText(responsibilities[i], blue, longest);
+            alignText(responsibilities[i], green, longest);
         } else {
             alignText(responsibilities[i], regular, longest);
         }
@@ -418,7 +447,7 @@ function projectDataPrinter(projectName) {
 
     var techStack = resume["Projects"][projectName][0];
     var details = resume["Projects"][projectName][1]
-    centerText(techStack, cyan);
+    centerText(techStack, blue);
     console.log("\n");
 
 
@@ -438,6 +467,9 @@ function projectDataPrinter(projectName) {
 
 function projectHandler() {
     clear();
+    if (handleTerminalSize()) {
+        return;
+    }
     specificProjectHandler();
     return;
 }
@@ -503,7 +535,7 @@ function actionHandler(previousPage) {
         inquirer.prompt({
                 type: "list",
                 name: "exitBack",
-                message: chalk.yellow("Previous Page, Main Menu or Exit?"),
+                message: yellow("Previous Page, Main Menu or Exit?"),
                 choices: [upPage, "Back to Main Menu", "Exit"]
             })
             .then(choice => {
@@ -565,7 +597,8 @@ async function messageHandler() {
     console.log("\n");
     await inquirer.prompt(messageToKevin).then(msg => {
 		    console.log("\n");
-		    console.log(cyan("Thanks for the message!"));
+            console.log(regular("Message received!"));
+		    console.log(blue("Thanks for the message"));
 		    sendMessage(msg.message)
 	  	})
     console.log("\n");

@@ -1,7 +1,6 @@
 {
   "Contact Information": [
     "LinkedIn: https://www.linkedin.com/in/kevinjzhu/",
-    "Website: https://www.kevin-zhu.com",
     "Github: https://github.com/kevinzhu822",
     "Email: zhu.kevin@berkeley.edu",
     "PDF Resume: https://www.kevin-zhu.com/resume.pdf"
@@ -10,7 +9,7 @@
     "College: University of California, Berkeley",
     "Major: Computer Science",
     "GPA: 3.60",
-    "Relevant Coursework: Database Systems, Data Structures, Computer Architecture, Algorithms, Data Science"
+    "Relevant Coursework: Database Systems, Operating Systems, System Security, Artificial Intelligence, Data Structures, Computer Architecture, Algorithms"
   ],
   "Skills": [
     "Frontend: Angular, React, JavaScript, TypeScript, Apollo",
@@ -21,7 +20,7 @@
     "PCB Design: SOLIDWORKS PCB, CircuitMaker"
   ],
   "Past Experiences": {
-    "Amazon Web Services": [
+    "Amazon Web Services (Full-Time)": [
       "Software Development Engineer I",
       "March 2022 - Present",
       [
